@@ -6,7 +6,7 @@ In large github projects with so many collaborators, it often happens that many 
 ## Idea Overview:
 We aim to build a bot for the communication channel of that project/ organisation, (slack bot for now) that will analyze all the changes made to that project, and will generate weekly report, summarizing what all changes were made ( by analyzing merged pull requests and changes made by admin). This will thus help all the contributors and project maintainers to stay up-to-date and keep track of all changes made in that project. Also, this bot will analyze the contributors graph for that project, and will mention top 10 contributors who were most active in that week with changes they made. This will thus help in highlighting those contributors in that project community, and at the same time saves the time of project admin, by reducing the efforts of keeping a regular check of contributions graph.
 
-## features and Hasura APIs used
+## Features and Hasura APIs used
 1. We’ll build login associated with different organization using Hasura Auth API.
 2. For each organization its associated repository contributions are stored in database using Hasura Database API.
 3. **Weekly summary or report for all the changes made** : It’ll contain list of all the changes made to that project per week. This will be done by analyzing all the pull requests merged in that week along with changes made by project admin.
