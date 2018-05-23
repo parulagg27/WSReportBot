@@ -204,7 +204,7 @@ class GHScrape(object):
                     if self.stats[author]['avatar_url'] == '':
                         self.stats[author]['avatar_url'] = avatar_url
 
-            # Students' data based on Pull Requests
+            # User's data based on Pull Requests
             query = "https://api.github.com/repos/{}/pulls?state=all".format(project)
             prs = self.fetch_all_pull_requests(query, since=since, headers=headers)
 
