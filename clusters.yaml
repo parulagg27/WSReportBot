@@ -1,0 +1,7 @@
+- alias: hasura
+  config:
+    configmap: controller-conf
+    namespace: graveside44-hasura
+  data: null
+  kubeContext: graveside44
+  name: graveside44
