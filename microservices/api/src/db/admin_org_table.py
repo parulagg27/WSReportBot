@@ -24,7 +24,7 @@ class admin_org_handler(object):
         requestPayload = {
             "type": "insert",
             "args": {
-                "table": "admin_org_handler",
+                "table": "admin_org_table",
                 "objects": [
                     {
                         "admin_username": admin_username,
@@ -42,7 +42,7 @@ class admin_org_handler(object):
             requestPayload = {
                 "type": "select",
                 "args": {
-                    "table": "admin_org_handler",
+                    "table": "admin_org_table",
                     "columns": [
                         "organization",
                         "project"
@@ -58,7 +58,7 @@ class admin_org_handler(object):
             requestPayload = {
                 "type": "select",
                 "args": {
-                    "table": "admin_org_handler",
+                    "table": "admin_org_table",
                     "columns": [
                         "admin_username"
                     ],
@@ -75,4 +75,4 @@ class admin_org_handler(object):
 if __name__ == '__main__':
     aot = admin_org_handler()
     # print aot.add_project(admin_username = 'mulx10', project = 'KRSSG/robocup-stp-asia')
-    print aot.get_data(project='KRSSG/robocup-stp-asia')
+    print aot.get_data(project='KRSSG/robocup-stp')
