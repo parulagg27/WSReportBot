@@ -1,0 +1,11 @@
+- args:
+    sql: CREATE TABLE "daily_report_table"("id" bigserial NOT NULL, "admin_username"
+      text NOT NULL, "project" text NOT NULL, "contributor_handle" text NOT NULL,
+      "avatar_url" text NOT NULL, "contributor_name" text NOT NULL, "no_of_commits"
+      bigint NOT NULL, "pr_open" bigint NOT NULL, "pr_closed" bigint NOT NULL, "languages"
+      json NOT NULL, "lines_added" bigint NOT NULL, "lines_removed" bigint NOT NULL,
+      "commits" json NOT NULL, PRIMARY KEY ("id") )
+  type: run_sql
+- args:
+    name: daily_report_table
+  type: add_existing_table_or_view
