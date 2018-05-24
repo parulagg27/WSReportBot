@@ -73,6 +73,6 @@ class admin_org_handler(object):
         return resp.content
 
 if __name__ == '__main__':
-    aot = admin_org_handler()
-    # print aot.add_project(admin_username = 'mulx10', project = 'KRSSG/robocup-stp-asia')
-    print aot.get_data(project='KRSSG/robocup-stp')
+    aoh = admin_org_handler()
+    print aoh.add_project(admin_username = 'mulx10', project = 'KRSSG/robocup-stp')
+    print aoh.get_data(project='KRSSG/robocup-stp-asia')
