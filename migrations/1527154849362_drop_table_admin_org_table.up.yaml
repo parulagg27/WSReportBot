@@ -1,0 +1,3 @@
+- args:
+    sql: DROP TABLE "admin_org_table"
+  type: run_sql
