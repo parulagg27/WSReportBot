@@ -20,8 +20,9 @@ def insert_into_report_table(json_object):
         dict_json = json_object[user] 
         projects = dict_json["projects"]
         for project in projects:
-            admin = aoh.get_data(project = project).split(":")[1].split("}")[0]
-            print(admin)
+            admin = aoh.get_data(project = project).split(":")[1].split("}")[0].strip("\"")
+            # print(admin)
+            org_name, project = project.split('/')
             requestPayload = {
                 "type": "insert",
                 "args": {
@@ -29,6 +30,7 @@ def insert_into_report_table(json_object):
                     "objects": [
                         {
                             "admin_username": admin,
+                            "org_name": org_name,
                             "project": project,
                             "contributor_handle": user,
                             "avatar_url": dict_json["avatar_url"],

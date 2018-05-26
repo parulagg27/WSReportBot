@@ -3,8 +3,10 @@ import csv
 import os
 import json
 import requests
+from datetime import datetime as T
+from datetime import timedelta as dT
 
-
+dT = timedelta(days=1)
 dir_path = os.path.dirname(os.path.realpath(__file__))
 root_dir = '/'.join(dir_path.split('/')[:-2])
 
@@ -239,6 +241,10 @@ class GHScrape(object):
         with open('stats.json', 'r') as f:
             stats = json.load(f)
             return stats[user]
+
+
+
+
 if __name__ == '__main__':
     org_name = 'KRSSG'
     projects = ['robocup-stp']
