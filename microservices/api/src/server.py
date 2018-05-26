@@ -8,6 +8,6 @@ def home():
 
 # Uncomment to add a new URL at /new
 
-# @app.route("/json")
-# def json_message():
-#     return jsonify(message="Hello World")
+@app.route("/json")
+def json_message():
+    return jsonify(message="Hello World")

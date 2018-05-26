@@ -1,0 +1,8 @@
+- args:
+    sql: CREATE TABLE "admin_org_table"("id" serial NOT NULL, "username" text NOT
+      NULL, "organization" text NOT NULL, "project" json NOT NULL, PRIMARY KEY ("id","username")
+      )
+  type: run_sql
+- args:
+    name: admin_org_table
+  type: add_existing_table_or_view
