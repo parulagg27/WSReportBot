@@ -3,18 +3,17 @@ import csv
 import os
 import json
 import requests
-from datetime import datetime as T
-from datetime import timedelta as dT
 
-dT = timedelta(days=1)
 dir_path = os.path.dirname(os.path.realpath(__file__))
 root_dir = '/'.join(dir_path.split('/')[:-2])
 
 token = os.environ.get('GH_API_KEY')
+token = 'a8076a185ed1496d7d76526e16056b36e206d7f6'
+
 headers = {
     'Authorization': 'token ' + token
 }
-languages_json = json.load(open("languages.json", 'r'))
+languages_json = json.load(open("gh_scrape/languages.json", 'r'))
 
 class GHScrape(object):
     """docstring for GHScrape"""
@@ -76,12 +75,12 @@ class GHScrape(object):
         # Generate empty statistics
         
 
-    def add_project(self,project):
-        if 'list' in str(type(project)):
-            project = map(lambda x:self.org_name+'/'+x,project)
-            self.projects.extend(project)
+    def add_project(self,projects):
+        if 'list' in str(type(projects)):
+            projects = map(lambda x:self.org_name+'/'+x,projects)
+            self.projects.extend(projects)
         else:
-            self.projects.append(self.org_name+'/'+project) 
+            self.projects.append(self.org_name+'/'+projects) 
 
     def add_user(self,user,name="NULL"):
         self.usernames.add(user)
@@ -234,9 +233,11 @@ class GHScrape(object):
             copy_stats[user]['projects'] = list(copy_stats[user]['projects'])
             copy_stats[user]['languages'] = list(copy_stats[user]['languages'])
 
-        with open('stats.json', 'w') as f:
-            f.write(json.dumps(copy_stats))
-        print("Done.")
+        # with open('stats.json', 'a') as f:
+        #     f.write(json.dumps(copy_stats))
+        # print("Done.")
+        return copy_stats
+
     def get_stats(self,user):
         with open('stats.json', 'r') as f:
             stats = json.load(f)
@@ -254,7 +255,7 @@ if __name__ == '__main__':
     name = "Mehul Kumar Nirala"
 
     ghs = GHScrape(org_name = org_name)
-    ghs.add_project(project = projects)
+    ghs.add_project(projects = projects)
     ghs.add_user(user = user,name = name)
     ghs.run(since,until)
 

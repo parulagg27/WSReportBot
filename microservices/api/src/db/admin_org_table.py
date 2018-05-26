@@ -8,17 +8,10 @@ class admin_org_handler(object):
         # This is the url to which the query is made
         self.url = "https://data.graveside44.hasura-app.io/v1/query"
 
-        self.login()
-
-    def login(self):
-        self.headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer 85642c50c2a669a9c281f6ef65e3772f63e672dd7a0808b2",
-            "X-Hasura-Role": "admin"
-        }
+        # self.login()
         # This is the json payload for the query
 
-    def add_project(self,admin_username,project,organization=None):
+    def add_project(self,admin_username,project,organization=None,headers=None):
         if organization is None:
             organization = project.split('/')[0]
         requestPayload = {
@@ -34,43 +27,60 @@ class admin_org_handler(object):
                 ]
             }
         }
-        resp = requests.request("POST", self.url, data = json.dumps(requestPayload), headers = self.headers)
-        return resp.content
+        resp = requests.request("POST", self.url, data = json.dumps(requestPayload), headers = headers)
+        return json.loads(resp.content)
+    def get_admin(self,project,headers=None):
+        requestPayload = {
+            "type": "select",
+            "args": {
+                "table": "admin_org_table",
+                "columns": [
+                    "admin_username"
+                ],
+                "where": {
+                    "project": {
+                        "$eq": project
+                    }
+                }
+            }
+        }
+        resp = requests.request("POST", self.url, data = json.dumps(requestPayload), headers = headers)
+        return json.loads(resp.content)
+    
+    def get_project(self,admin_username=None,project=None,headers=None):
+        requestPayload = {
+            "type": "select",
+            "args": {
+                "table": "admin_org_table",
+                "columns": [
+                    "organization",
+                    "project"
+                ],
+                "where": {
+                    "admin_username": {
+                        "$eq": admin_username
+                    }
+                }
+            }
+        }
+        resp = requests.request("POST", self.url, data = json.dumps(requestPayload), headers = headers)
+        print(resp.content)
+        return json.loads(resp.content)
+        
+    def get_org_project(self,headers=None):
+        requestPayload = {
+            "type": "select",
+            "args": {
+                "table": "admin_org_table",
+                "columns": [
+                    "organization",
+                    "project"
+                ]
+            }
+        }
+        resp = requests.request("POST", self.url, data = json.dumps(requestPayload), headers = headers)
+        return json.loads(resp.content)
 
-    def get_data(self,admin_username=None,project=None):
-        if admin_username is not None:
-            requestPayload = {
-                "type": "select",
-                "args": {
-                    "table": "admin_org_table",
-                    "columns": [
-                        "organization",
-                        "project"
-                    ],
-                    "where": {
-                        "admin_username": {
-                            "$eq": admin_username
-                        }
-                    }
-                }
-            }
-        if project is not None:
-            requestPayload = {
-                "type": "select",
-                "args": {
-                    "table": "admin_org_table",
-                    "columns": [
-                        "admin_username"
-                    ],
-                    "where": {
-                        "project": {
-                            "$eq": project
-                        }
-                    }
-                }
-            }
-        resp = requests.request("POST", self.url, data = json.dumps(requestPayload), headers = self.headers)
-        return resp.content
 
 if __name__ == '__main__':
     aoh = admin_org_handler()
