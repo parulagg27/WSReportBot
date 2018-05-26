@@ -1,3 +1,6 @@
+"""
+This serves the backend part for WSReportbot
+"""
 from gh_scrape.generate_scrape import GHScrape
 from db.admin_org_table import admin_org_handler
 from db.daily_report_table import insert_into_report_table, select_from_report_table
@@ -55,15 +58,29 @@ def get_weekly_report(org_name,headers):
                 "org_name": org_name,
                 "project": project,
                 "contributor_handle": user,
-                "avatar_url": dict_json["avatar_url"],
-                "contributor_name": dict_json["name"],
-                "no_of_commits": dict_json["no_of_commits"],
-                "pr_open": dict_json["pr_open"] ,
-                "pr_closed": dict_json["pr_closed"],
-                "languages": dict_json["languages"],
-                "lines_added": dict_json["lines_added"],
-                "lines_removed": dict_json["lines_removed"],
-                "commits":dict_json["commits"],
+                "avatar_url": as the name suggests :p ,
+                "contributor_name": same as above,
+                "no_of_commits": same as above,
+                "pr_open": same as above ,
+                "pr_closed": same as above,
+                "languages": languages in which the patch was written
+                "lines_added": ^^,
+                "lines_removed": :p,
+                "commits": json containing commit as 
+                    key : message
+                    value : type: string (Message of the commit)
+
+                    key : project
+                    value : type: string (Project this commit belongs to)
+
+                    key : html_url
+                    value : type: string (Link for the url)
+
+                    key : lines_added
+                    value : type: int (Lines added in the commit)
+
+                    key : lines_removed
+                    value : type: int (Lines removed in the commit)
                 "date":date
             }
     '''
@@ -81,6 +98,8 @@ if __name__ == '__main__':
     generate_report(headers)
 
     # Run Weekly
-    get_weekly_report(org_name = 'KRSSG',headers = headers)
+    report = get_weekly_report(org_name = 'KRSSG',headers = headers)
+    # @parul get the required data from the above function and display it on the channel.
+    # My code is messy, feel free to ask doubts :) 
 
 

@@ -19,5 +19,6 @@ def get_org_project_dict(headers):
     return org_project_dict
 
 def get_contributors_list(org_name, projects,headers):
+    # @parul add the code to fetch contributors of a particular org working on its projects
     return [['mulx10',"Mehul Kumar Nirala"],['parulagg27',"Parul Aggarwal"]]
     
