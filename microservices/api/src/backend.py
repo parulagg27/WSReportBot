@@ -1,18 +1,18 @@
 """
 This serves the backend part for WSReportbot
 """
-from gh_scrape.generate_scrape import GHScrape
-from db.admin_org_table import admin_org_handler
-from db.daily_report_table import insert_into_report_table, select_from_report_table
-from datetime import datetime
-from datetime import timedelta
-from utils.login import login
-from utils.utils import get_org_project_dict,get_contributors_list
+from src.gh_scrape.generate_scrape import GHScrape
+from src.db.admin_org_table import admin_org_handler
+from src.db.daily_report_table import insert_into_report_table, select_from_report_table
+from src.utils.login import login
+from src.utils.utils import get_org_project_dict,get_contributors_list
 import os
 import json
+from datetime import datetime
+from datetime import timedelta
 
 
-headers = login('mehul','mehul@hasura') 
+# headers = login('mehul','mehul@hasura') 
 # headers = login('parul','parul@hasura') 
 
 def generate_daily_report(headers):

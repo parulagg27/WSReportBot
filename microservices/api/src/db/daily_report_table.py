@@ -1,8 +1,8 @@
 import requests
 import json
 from datetime import datetime, timedelta
-from admin_org_table import admin_org_handler
-from utils.login import login
+from src.db.admin_org_table import admin_org_handler
+from src.utils.login import login
 
 aoh = admin_org_handler()
 
@@ -40,7 +40,7 @@ def insert_into_report_table(json_object, headers, date):
                 }
             }
             resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-            print json.loads(resp.content)
+            print (json.loads(resp.content))
 
 
 def select_from_report_table(user, since=None,until=None,headers=None):
@@ -98,8 +98,8 @@ if __name__ == '__main__':
     T = datetime(month=5,day=16,year=2018)
     since = (T-dT).strftime("%d %h %Y")
     until = T.strftime("%d %h %Y")
-    print select_from_report_table(user = 'mulx10',
+    print (select_from_report_table(user = 'mulx10',
                                     since = since,
                                     until = until,
-                                    headers = headers)
+                                    headers = headers))
     

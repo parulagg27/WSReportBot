@@ -1,7 +1,7 @@
 from src import app
 from flask import Flask, render_template
 # from flask import jsonify
-
+from src.backend import *
 
 @app.route("/")
 def home():

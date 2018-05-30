@@ -1,5 +1,5 @@
-from db.admin_org_table import admin_org_handler
-from db.daily_report_table import insert_into_report_table, select_from_report_table
+from src.db.admin_org_table import admin_org_handler
+from src.db.daily_report_table import insert_into_report_table, select_from_report_table
 from datetime import datetime as T
 from datetime import timedelta as dT
 import os

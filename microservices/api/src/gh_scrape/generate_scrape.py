@@ -13,7 +13,7 @@ token = 'a8076a185ed1496d7d76526e16056b36e206d7f6'
 headers = {
     'Authorization': 'token ' + token
 }
-languages_json = json.load(open("gh_scrape/languages.json", 'r'))
+languages_json = json.load(open("src/gh_scrape/languages.json", 'r'))
 
 class GHScrape(object):
     """docstring for GHScrape"""
