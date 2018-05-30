@@ -17,7 +17,7 @@ def report():
     user_report = [{'handle':'mulx10',
                     'avatar_url':'https://avatars2.githubusercontent.com/u/23444642?v=4',
                     'name':'Mehul Kumar Nirala',
-                    'details':'no need'},
+                    'details':'not needed'},
                     {'handle':'parulagg27',
                     'avatar_url':'https://avatars1.githubusercontent.com/u/29358390?s=460&v=4',
                     'name':'Parul Aggarwal',
