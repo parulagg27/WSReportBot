@@ -6,6 +6,12 @@ from flask import jsonify
 def home():
     return "Hello Parul :P"
 
+@app.route("/start")
+def start():
+    import subprocess
+    subprocess.Popen(["python","src/utils/clock.py"])
+    return "Hello Parul :P"
+
 @app.route("/lang")
 def index():
     return render_template("lang.html",langreport=[{'lang':'python','w1':100,'w2':4},{'lang':'python','w1':3,'w2':4}])
