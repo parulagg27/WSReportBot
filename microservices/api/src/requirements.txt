@@ -2,4 +2,5 @@ flask
 requests
 gunicorn
 pygithub3
+apscheduler
 # add new packages one per each line

@@ -12,8 +12,7 @@ import os
 import json
 
 
-# headers = login('mehul','mehul@hasura') 
-# headers = login('parul','parul@hasura') 
+
 
 def generate_daily_report(headers):
     T = datetime.now()
@@ -94,6 +93,8 @@ def get_weekly_report(org_name,headers):
 
 
 if __name__ == '__main__':
+    headers = login('mehul','mehul@hasura') 
+    # headers = login('parul','parul@hasura') 
     # Run daily
     generate_report(headers)
 

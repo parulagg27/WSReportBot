@@ -1,4 +1,6 @@
 from flask import Flask
+import subprocess
+subprocess.Popen(["python","src/utils/clock.py"])
 
 api = Flask(__name__)
 

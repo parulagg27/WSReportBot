@@ -1,11 +1,10 @@
 from src import api
 from flask import Flask, render_template
-# from flask import jsonify
-from src.backend import *
+from flask import jsonify
 
 @api.route("/")
 def home():
-    return "Hasura Hello World"
+    return "Hello Parul :P"
 
 @api.route("/lang")
 def index():
