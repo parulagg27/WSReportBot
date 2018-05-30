@@ -1,0 +1,50 @@
+body { 
+  font-family: sans-serif;
+  max-width: 60em;
+  margin: auto;
+  padding: 1em;
+}
+
+table { 
+  width: 100%;
+  background: #eee;
+  padding: 1em;
+  margin: 1em auto;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}
+
+th {font-size: 1.2em}
+
+td {
+  font-weight: bold;
+  border-bottom: 1px solid #fbfbfb;
+  width: 20%;
+  padding: .5em .25em;
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  -webkit-transition: all .75s ease-out;
+  -moz-transition: all .75s ease-out;
+  transition: all .75s ease-out;
+}
+
+td:nth-child(2) {
+  width: 40%;
+  color: white;
+  text-shadow: 1px 2px #222;
+  text-align: right;
+  background-image: -webkit-linear-gradient(to left, green, green);
+  background-image: -moz-linear-gradient(to left, green, green);
+  background-image: linear-gradient(to left, green, green);
+  background-position: right top;
+}
+
+td:nth-child(3) { 
+  width: 40%;
+  color: white;
+  text-shadow: 1px 2px #222;
+  background-image: -webkit-linear-gradient(right, gray, gray);
+  background-image: -moz-linear-gradient(right, gray, gray);
+  background-image: linear-gradient(right, gray, gray);
+  background-position: left top;
+}

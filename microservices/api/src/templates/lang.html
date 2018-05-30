@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>languages</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static',filename='js/lang.js') }}">
+	</script> 
+		<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/lang.css') }}">
+	</head>
+	<body>
+		<h1>Two-column data comparison</h1>
+		<table>
+		  <tr><th>Languages</th><th>This Week</th><th>Last Week</th></tr>
+	 	  {% for x in langreport %}
+	 	  <tr><td>{{ x.lang }}</td><td>{{ x.w1 }}</td><td>{{ x.w2 }}</td></tr>
+	 	  {% endfor %}
+		</table>
+	</body>
+</html>
