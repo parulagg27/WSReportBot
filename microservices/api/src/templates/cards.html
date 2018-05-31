@@ -187,7 +187,11 @@ body {
 				</span>
 			</span>
 			<span class="card-summary">
-				{{x.details}}
+        Lines Added : {{x.lines_added}}</br>
+        Lines Removed :{{ x.lines_removed}}</br>
+        Commits : {{ x.no_of_commits}}</br>
+        PR open : {{ x.pr_open}}</br>
+				PR closed : {{ x.pr_closed}}</br>
 			</span>
 			<span class="card-meta">
 				Published: {{date}}

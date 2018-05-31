@@ -89,7 +89,21 @@ def get_weekly_report(org_name,headers):
                                     since = since,
                                     until = until,
                                     headers = headers)
-    return report
+    final_report = []
+    for user in report.keys():
+        d = {}
+        d['handle'] = user
+        d['avatar_url'] = report[user]['avatar_url']
+        d['name'] = report[user]['contributor_name']
+        d['lines_added'] = report[user]['lines_added']
+        d['lines_removed'] = report[user]['lines_removed']
+        d['no_of_commits'] = report[user]['no_of_commits']
+        d['pr_open'] = report[user]['pr_open']
+        d['pr_closed'] = report[user]['pr_closed']
+        final_report.append(d)
+
+
+    return final_report,until
 
 
 if __name__ == '__main__':
