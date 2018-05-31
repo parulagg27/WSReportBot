@@ -18,7 +18,7 @@ def start():
 def report(org_name):
     print(org_name)
     headers = login('mehul','mehul@hasura') 
-    org_name = 'KRSSG'
+    # org_name = 'KRSSG'
     user_report, date = get_weekly_report(org_name = org_name,headers = headers)
     # user_report = [{
     #                     'handle':'mulx10',
