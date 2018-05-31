@@ -2,10 +2,11 @@
 This serves the backend part for WSReportbot
 """
 from src.gh_scrape.generate_scrape import GHScrape
+from src.gh_scrape.get_contributors import get_contributors_list
 from src.db.admin_org_table import admin_org_handler
 from src.db.daily_report_table import insert_into_report_table, select_from_report_table
 from src.utils.login import login
-from src.utils.utils import get_org_project_dict,get_contributors_list
+from src.utils.utils import get_org_project_dict
 from datetime import datetime
 from datetime import timedelta
 import os
@@ -28,9 +29,7 @@ def generate_daily_report(headers):
         print(projects)
         ghs = GHScrape(org_name = org_name)
         ghs.add_project(projects = projects)
-        contributors = get_contributors_list( org_name = org_name, 
-                                                projects = projects, 
-                                                headers = headers)
+        contributors = get_contributors_list(org_name = org_name)
         for user,name in contributors:
             ghs.add_user(user = user,name = name)
         stats = ghs.run(since,until)
@@ -46,9 +45,7 @@ def get_weekly_report(org_name,headers):
     org_project_dict = get_org_project_dict(headers = headers)
     projects = org_project_dict[org_name]
 
-    contributors = get_contributors_list(org_name = org_name, 
-                                            projects = projects, 
-                                            headers = headers)
+    contributors = get_contributors_list(org_name = org_name)
     report = {}
     '''
     key : user
