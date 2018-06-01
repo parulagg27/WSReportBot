@@ -1,7 +1,6 @@
 flask
 requests
 gunicorn
-pygithub3
 apscheduler
 slackclient
 # add new packages one per each line
