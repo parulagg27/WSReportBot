@@ -105,7 +105,13 @@ def get_weekly_report(org_name,headers,day=None):
 
     contributors = []
     for prj in projects:
-        contributors.extend(get_contributors_list(org_name = org_name,project_name=prj))
+        try:
+            cr = get_contributors_list(org_name = org_name,project_name=prj)
+            print(cr)
+            contributors.extend(cr)
+        except Exception as e:
+            pass
+
     contributors = list(set(map(tuple, contributors)))
     print(contributors,"inside backend")
     report = {}
