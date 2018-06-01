@@ -2,7 +2,7 @@
 This serves the backend part for WSReportbot
 """
 from src.gh_scrape.generate_scrape import GHScrape
-from src.gh_scrape.get_contributors import get_contributors_list
+# from src.gh_scrape.get_contributors import get_contributors_list
 from src.db.admin_org_table import admin_org_handler
 from src.db.daily_report_table import insert_into_report_table, select_from_report_table, select_language_from_report_table
 from src.utils.login import login
