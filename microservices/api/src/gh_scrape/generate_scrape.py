@@ -82,7 +82,7 @@ class GHScrape(object):
         else:
             self.projects.append(self.org_name+'/'+projects) 
 
-    def add_user(self,user,name="NULL"):
+    def add_user(self,user,name):
         self.usernames.add(user)
         self.stats[user] = dict()
         self.stats[user]['avatar_url'] = ''
@@ -158,6 +158,7 @@ class GHScrape(object):
                     continue
                 author = commit['author']['login'].lower()
                 avatar_url = commit['author']['avatar_url']
+                # print(author)
                 if author in self.usernames:
                     print(author, " working on ", project)
                     html_url = commit['html_url']

@@ -14,9 +14,10 @@ def login(username,password):
         "Content-Type": "application/json"
     }
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    # print(str(resp.content.decode('utf-8')))
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer "+json.loads(resp.content)['auth_token'],
+        "Authorization": "Bearer "+str(json.loads(resp.content.decode('utf-8'))['auth_token']),
         "X-Hasura-Role": "admin"
     }
     return headers

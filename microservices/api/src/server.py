@@ -1,6 +1,8 @@
 from src import app
 from flask import Flask, render_template
 from flask import jsonify
+from datetime import datetime
+from datetime import timedelta
 from src.utils.backend import get_weekly_report
 from src.utils.login import login
 
@@ -17,9 +19,10 @@ def start():
 @app.route("/report/<org_name>")
 def report(org_name):
     print(org_name)
-    headers = login('mehul','mehul@hasura') 
+    headers = login('mehul','mehul@hasura')
     # org_name = 'KRSSG'
-    user_report, date = get_weekly_report(org_name = org_name,headers = headers)
+    T = datetime(month=5,day=8,year=2018)+timedelta(days=7)
+    user_report, date = get_weekly_report(org_name = org_name,headers = headers,day = T)
     # user_report = [{
     #                     'handle':'mulx10',
     #                     'avatar_url':'https://avatars2.githubusercontent.com/u/23444642?v=4',

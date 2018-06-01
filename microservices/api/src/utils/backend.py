@@ -15,10 +15,12 @@ import json
 
 
 
-def generate_daily_report(headers):
-    T = datetime.now()
+def generate_daily_report(headers,day = None):
+    if day is None:
+        T = datetime.now()
+    else:
+        T = day
     dT = timedelta(days=1)
-    # T = datetime(month=5,day=16,year=2018)
     date = T.strftime("%d %h %Y")
     since = str(T-dT).split(' ')[0]+'T00:00:00Z'
     until = str(T).split(' ')[0]+'T00:00:00Z'
@@ -31,12 +33,19 @@ def generate_daily_report(headers):
         ghs.add_project(projects = projects)
         contributors = get_contributors_list(org_name = org_name)
         for user,name in contributors:
-            ghs.add_user(user = user,name = name)
+            ghs.add_user(user = user.lower(),name = name)
+            print(user,name)
         stats = ghs.run(since,until)
-        insert_into_report_table(stats, headers, date)
+        try:
+            insert_into_report_table(stats, headers, date)
+        except Exception as e:
+            print(e)
 
-def get_weekly_report(org_name,headers):
-    T = datetime.now()
+def get_weekly_report(org_name,headers,day=None):
+    if day is None:
+        T = datetime.now()
+    else:
+        T = day
     # T = datetime(month=5,day=16,year=2018)
     dT = timedelta(days=7)
     since = (T-dT).strftime("%d %h %Y")
@@ -87,30 +96,51 @@ def get_weekly_report(org_name,headers):
                                     until = until,
                                     headers = headers)
     final_report = []
+    # print(report)
     for user in report.keys():
         d = {}
-        d['handle'] = user
-        d['avatar_url'] = report[user]['avatar_url']
-        d['name'] = report[user]['contributor_name']
-        d['lines_added'] = report[user]['lines_added']
-        d['lines_removed'] = report[user]['lines_removed']
-        d['no_of_commits'] = report[user]['no_of_commits']
-        d['pr_open'] = report[user]['pr_open']
-        d['pr_closed'] = report[user]['pr_closed']
-        final_report.append(d)
+        reps = report[user]
+        if len(reps) < 1:
+            continue
+        else:
+            for rep in reps:
+                try:
+                    d['lines_added'] += rep['lines_added']
+                    d['lines_removed'] += rep['lines_removed']
+                    d['no_of_commits'] += rep['no_of_commits']
+                    d['pr_open'] += rep['pr_open']
+                    d['pr_closed'] += rep['pr_closed']
+                except Exception as e:
+                    d['handle'] = user
+                    d['avatar_url'] = rep['avatar_url']
+                    d['name'] = rep['contributor_name']
+                    d['lines_added'] = rep['lines_added']
+                    d['lines_removed'] = rep['lines_removed']
+                    d['no_of_commits'] = rep['no_of_commits']
+                    d['pr_open'] = rep['pr_open']
+                    d['pr_closed'] = rep['pr_closed']
+            final_report.append(d)
 
 
     return final_report,until
 
 
 if __name__ == '__main__':
+    org_name = 'KRSSG'
+
     headers = login('mehul','mehul@hasura') 
     # headers = login('parul','parul@hasura') 
-    # Run daily
-    generate_report(headers)
+    ## Run daily
+    # generate_daily_report(headers,day = T+dT)
+    
+    T = datetime(month=5,day=8,year=2018)+timedelta(days=7)
+    # for i in range(4,12):
+    #     dT = timedelta(days=i)
+    #     print('at',i)
+    #     generate_daily_report(headers,day = T+dT)
 
-    # Run Weekly
-    report = get_weekly_report(org_name = 'KRSSG',headers = headers)
+    ## Run Weekly
+    report = get_weekly_report(org_name = org_name,headers = headers,day=T)
     # @parul get the required data from the above function and display it on the channel.
     # My code is messy, feel free to ask doubts :) 
 
