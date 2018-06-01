@@ -91,6 +91,33 @@ def select_from_report_table(user, since=None,until=None,headers=None):
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     return json.loads(resp.content.decode('utf-8'))
 
+def select_language_from_report_table(since,until,headers):
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "daily_report_table",
+            "columns": [
+                "languages"
+            ],
+            "where": {
+                "$and": [
+                    {
+                        "date": {
+                            "$gt": since
+                        }
+                    },
+                    {
+                        "date": {
+                            "$lte": until
+                        }
+                    }
+                ]
+            }
+        }
+    }
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    return json.loads(resp.content.decode('utf-8'))
+
 
 if __name__ == '__main__':
     # with open('../gh_scrape/stats.json', 'r') as f:

@@ -3,8 +3,10 @@ from flask import Flask, render_template
 from flask import jsonify
 from datetime import datetime
 from datetime import timedelta
-from src.utils.backend import get_weekly_report
+from src.utils.backend import get_weekly_report, get_language_report_week
 from src.utils.login import login
+
+headers = login('mehul','mehul@hasura')
 
 @app.route("/")
 def home():
@@ -18,9 +20,6 @@ def start():
 
 @app.route("/report/<org_name>")
 def report(org_name):
-    print(org_name)
-    headers = login('mehul','mehul@hasura')
-    # org_name = 'KRSSG'
     T = datetime(month=5,day=8,year=2018)+timedelta(days=7)
     user_report, date = get_weekly_report(org_name = org_name,headers = headers,day = T)
     # user_report = [{
@@ -47,9 +46,10 @@ def report(org_name):
     return render_template("cards.html",user_report=user_report, date=date)
 
 @app.route("/lang")
-def index():
-    langreport = [{'lang':'python','w1':100,'w2':4},{'lang':'python','w1':3,'w2':4}]
-    return render_template("lang.html",langreport=langreport)
+def language_report():
+    T = datetime(month=5,day=15,year=2018)+timedelta(days=7)
+    lang_report = get_language_report_week(headers = headers, day = T)
+    return render_template("lang.html",lang_report = lang_report)
 # Uncomment to add a new URL at /new
 
 @app.route("/json")

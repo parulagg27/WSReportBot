@@ -7,7 +7,7 @@ key_username = os.environ.get('KEY_USER_NAME')
 # pass_secret = 'a8076a185ed1496d7d76526e16056b36e206d7f6'
 # key_username = 'testme45'
 
-gh = Github(key_username, pass_secret)
+# gh = Github(key_username, pass_secret)
  
 def get_full_name(username):
     return str(gh.users.get(username).name)

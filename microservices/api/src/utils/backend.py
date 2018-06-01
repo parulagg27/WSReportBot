@@ -4,13 +4,59 @@ This serves the backend part for WSReportbot
 from src.gh_scrape.generate_scrape import GHScrape
 from src.gh_scrape.get_contributors import get_contributors_list
 from src.db.admin_org_table import admin_org_handler
-from src.db.daily_report_table import insert_into_report_table, select_from_report_table
+from src.db.daily_report_table import insert_into_report_table, select_from_report_table, select_language_from_report_table
 from src.utils.login import login
 from src.utils.utils import get_org_project_dict
 from datetime import datetime
 from datetime import timedelta
+from collections import Counter
 import os
 import json
+
+
+def get_lang_report(headers,T):
+    dT = timedelta(days=7)
+    since = (T-dT).strftime("%d %h %Y")
+    until = T.strftime("%d %h %Y")
+    lang_report = select_language_from_report_table(since = since, 
+                                                    until = until, 
+                                                    headers = headers)
+    languages = []
+    for lr in lang_report:
+        languages.extend(lr['languages'])
+    languages = dict(Counter(map(str,languages)))
+
+    return languages
+
+def get_language_report_week(headers,day = None):
+    if day is None:
+        T = datetime.now()
+    else:
+        T = day
+    dT = timedelta(days=7)
+    lang_report1 = get_lang_report(headers,T-dT)
+    lang_report2 = get_lang_report(headers,T)
+
+    language_report = []
+    keys = list(lang_report1.keys())+list(lang_report2.keys())
+    for key in keys:
+        lang = {}
+        try:
+            w1 = lang_report1[key]
+        except :
+            w1 = 0
+        try:
+            w2 = lang_report2[key]
+        except :
+            w2 = 0
+        lang['lang'] = str(key)
+        lang['w1'] = w1 
+        lang['w2'] = w2
+        language_report.append(lang)
+    return language_report
+
+
+
 
 
 
@@ -133,14 +179,16 @@ if __name__ == '__main__':
     ## Run daily
     # generate_daily_report(headers,day = T+dT)
     
-    T = datetime(month=5,day=8,year=2018)+timedelta(days=7)
+    T = datetime(month=5,day=15,year=2018)+timedelta(days=7)
     # for i in range(4,12):
     #     dT = timedelta(days=i)
     #     print('at',i)
     #     generate_daily_report(headers,day = T+dT)
 
     ## Run Weekly
-    report = get_weekly_report(org_name = org_name,headers = headers,day=T)
+    # report = get_weekly_report(org_name = org_name,headers = headers,day=T)
+    lang_report = get_language_report_week(headers = headers, day = T)
+    print(lang_report)
     # @parul get the required data from the above function and display it on the channel.
     # My code is messy, feel free to ask doubts :) 
 

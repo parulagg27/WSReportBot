@@ -13,7 +13,7 @@
 		<h1>Two-column data comparison</h1>
 		<table>
 		  <tr><th>Languages</th><th>This Week</th><th>Last Week</th></tr>
-	 	  {% for x in langreport %}
+	 	  {% for x in lang_report %}
 	 	  <tr><td>{{ x.lang }}</td><td>{{ x.w1 }}</td><td>{{ x.w2 }}</td></tr>
 	 	  {% endfor %}
 		</table>
