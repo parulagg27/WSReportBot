@@ -1,11 +1,32 @@
 from pygithub3 import Github
-pass_secret = '04a088c6d9e158d61d65a6e0bec239ebbd7b5d6f'
-gh = Github(user='testme45', token=pass_secret)
+import requests
+import os
+pass_secret = os.environ.get('GH_API_KEY')
+key_username = os.environ.get('KEY_USER_NAME')
+
+# pass_secret = 'a8076a185ed1496d7d76526e16056b36e206d7f6'
+# key_username = 'testme45'
+
+gh = Github(user = key_username, token = pass_secret)
  
+def get_full_name(username):
+    return str(gh.users.get(username).name)
+
 def get_contributors(org_name):
   contributors = gh.orgs.members.list(org_name).all()
-  return contributors 
+  contributors_username = []
+  for c in contributors:
+    contributors_username.append(str(c).split('(')[1].split(')')[0])
+  return contributors_username
 
 def get_contributors_list(org_name):
-	return [['mulx10',"Mehul Kumar Nirala"],['parulagg27',"Parul Aggarwal"]]
- 
+    contributors_username = get_contributors(org_name) 
+    contributors_list = []
+    for username in contributors_username:
+        fullname = get_full_name(username)
+        contributors_list.append([username,fullname])
+    return contributors_list
+    # return [['mulx10',"Mehul Kumar Nirala"],['parulagg27',"Parul Aggarwal"]]
+
+if __name__ == '__main__':
+    print get_contributors_list('KRSSG')

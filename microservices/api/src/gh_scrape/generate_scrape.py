@@ -8,7 +8,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 root_dir = '/'.join(dir_path.split('/')[:-2])
 
 token = os.environ.get('GH_API_KEY')
-token = 'a8076a185ed1496d7d76526e16056b36e206d7f6'
+# token = 'a8076a185ed1496d7d76526e16056b36e206d7f6'
 
 headers = {
     'Authorization': 'token ' + token
