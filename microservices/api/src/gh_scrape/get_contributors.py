@@ -36,6 +36,6 @@ def get_contributors_list(org_name, project_name):
     return [['mulx10',"Mehul Kumar Nirala"],['parulagg27',"Parul Aggarwal"]]
 
 if __name__ == '__main__':
-    # print(get_full_name('mulx10'))
+    print(get_full_name('mulx10'))
     # print(get_contributors('KRSSG','robocup-stp'))
     # print (get_contributors_list('KRSSG','robocup-stp'))
