@@ -38,17 +38,21 @@ def get_contributors_list(org_name, project_name):
 
     return contributors_list
     return [['mulx10',"Mehul Kumar Nirala"],['parulagg27',"Parul Aggarwal"]]
-
+    
+def main(org_name,project_name):
+    contributors = get_contributors_list(org_name,project_name)
+    add_contributor(headers=headers,org_name=org_name,project_name=project_name,contributors=contributors)
+    print(getcon(headers=headers,org_name=org_name,project_name=project_name))
+    
 if __name__ == '__main__':
     # print(get_full_name('mulx10'))
     org_name = 'KRSSG'
     project_name = 'robocup-stp'
     
     headers = login('mehul','mehul@hasura') 
+    main(org_name,project_name)
 
-    contributors = get_contributors_list(org_name,project_name)
-    add_contributor(headers=headers,org_name=org_name,project_name=project_name,contributors=contributors)
-    print(getcon(headers=headers,org_name=org_name,project_name=project_name))
+    
 
     # contributors = get_contributors_list('KRSSG','robocup')
     # add_contributor(headers=headers,org_name='KRSSG',project_name='robocup',contributors=contributors)
