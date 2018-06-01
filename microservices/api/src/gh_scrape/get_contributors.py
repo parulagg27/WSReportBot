@@ -15,9 +15,9 @@ def get_contributors(org_name,project_name):
         contributors = requests.get("https://api.github.com/repos/"+org_name+'/'+project_name+"/contributors?page=%d"%page_count)
         if contributors != None and contributors.status_code == 200 and len(contributors.json()) > 0:
             all_contributors = all_contributors + contributors.json()
-            print(page_count)
+            # print(page_count)
         else:
-            print("breaking")
+            # print("breaking")
             break
         page_count = page_count + 1
     all_contributors = list(map(lambda x: x['login'],all_contributors))

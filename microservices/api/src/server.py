@@ -25,7 +25,7 @@ def start():
 
 @app.route("/report/<org_name>")
 def report(org_name):
-    T = datetime(month=5,day=8,year=2018)+timedelta(days=7)
+    T = datetime(month=5,day=15,year=2018)
     user_report, date = get_weekly_report(org_name = org_name,headers = headers,day = T)
     # user_report = [{
     #                     'handle':'mulx10',

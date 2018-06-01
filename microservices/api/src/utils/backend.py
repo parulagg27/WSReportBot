@@ -80,7 +80,7 @@ def generate_daily_report(headers,day = None):
         contributors = []
         for prj in projects:
             contributors.extend(get_contributors_list(org_name = org_name,project_name=prj))
-        contributors = list(list(set(map(tuple, contributors))))
+        contributors = list(set(map(tuple, contributors)))
         for user,name in contributors:
             ghs.add_user(user = user.lower(),name = name)
             print(user,name)
@@ -106,8 +106,8 @@ def get_weekly_report(org_name,headers,day=None):
     contributors = []
     for prj in projects:
         print(get_contributors_list(org_name = org_name,project_name=prj))
-    # print(contributors)
-    contributors = list(list(set(map(tuple, contributors))))
+    contributors = list(set(map(tuple, contributors)))
+    print(contributors)
     report = {}
     '''
     key : user
