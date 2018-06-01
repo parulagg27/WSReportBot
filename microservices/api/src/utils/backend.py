@@ -107,7 +107,7 @@ def get_weekly_report(org_name,headers,day=None):
     for prj in projects:
         print(get_contributors_list(org_name = org_name,project_name=prj))
     contributors = list(set(map(tuple, contributors)))
-    print(contributors)
+    print(contributors,"inside backend")
     report = {}
     '''
     key : user
