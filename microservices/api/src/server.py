@@ -12,6 +12,11 @@ headers = login('mehul','mehul@hasura')
 def home():
     return "Hello Parul :P"
 
+@app.route("/login")
+def chk_login():
+    headers = login('mehul','mehul@hasura')
+    return "Hello Parul :P"
+
 @app.route("/start")
 def start():
     import subprocess

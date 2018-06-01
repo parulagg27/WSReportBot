@@ -2,7 +2,7 @@
 This serves the backend part for WSReportbot
 """
 from src.gh_scrape.generate_scrape import GHScrape
-# from src.gh_scrape.get_contributors import get_contributors_list
+from src.gh_scrape.get_contributors import get_contributors_list
 from src.db.admin_org_table import admin_org_handler
 from src.db.daily_report_table import insert_into_report_table, select_from_report_table, select_language_from_report_table
 from src.utils.login import login
@@ -77,7 +77,10 @@ def generate_daily_report(headers,day = None):
         print(projects)
         ghs = GHScrape(org_name = org_name)
         ghs.add_project(projects = projects)
-        contributors = get_contributors_list(org_name = org_name)
+        contributors = []
+        for prj in projects:
+            contributors.extend(get_contributors_list(org_name = org_name,project_name=prj))
+        contributors = list(list(set(map(tuple, contributors))))
         for user,name in contributors:
             ghs.add_user(user = user.lower(),name = name)
             print(user,name)
@@ -100,7 +103,11 @@ def get_weekly_report(org_name,headers,day=None):
     org_project_dict = get_org_project_dict(headers = headers)
     projects = org_project_dict[org_name]
 
-    contributors = get_contributors_list(org_name = org_name)
+    contributors = []
+    for prj in projects:
+        print(get_contributors_list(org_name = org_name,project_name=prj))
+    # print(contributors)
+    contributors = list(list(set(map(tuple, contributors))))
     report = {}
     '''
     key : user
@@ -186,9 +193,9 @@ if __name__ == '__main__':
     #     generate_daily_report(headers,day = T+dT)
 
     ## Run Weekly
-    # report = get_weekly_report(org_name = org_name,headers = headers,day=T)
-    lang_report = get_language_report_week(headers = headers, day = T)
-    print(lang_report)
+    report = get_weekly_report(org_name = org_name,headers = headers,day=T)
+    # lang_report = get_language_report_week(headers = headers, day = T)
+    # print(lang_report)
     # @parul get the required data from the above function and display it on the channel.
     # My code is messy, feel free to ask doubts :) 
 
