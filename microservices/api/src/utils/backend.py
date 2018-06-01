@@ -2,7 +2,7 @@
 This serves the backend part for WSReportbot
 """
 from src.gh_scrape.generate_scrape import GHScrape
-from src.gh_scrape.get_contributors import get_contributors_list
+from src.db.contributor_table import get_contributors_list
 from src.db.admin_org_table import admin_org_handler
 from src.db.daily_report_table import insert_into_report_table, select_from_report_table, select_language_from_report_table
 from src.utils.login import login
@@ -79,7 +79,7 @@ def generate_daily_report(headers,day = None):
         ghs.add_project(projects = projects)
         contributors = []
         for prj in projects:
-            contributors.extend(get_contributors_list(org_name = org_name,project_name=prj))
+            contributors.extend(get_contributors_list(headers=headers, org_name = org_name,project_name=prj))
         contributors = list(set(map(tuple, contributors)))
         for user,name in contributors:
             ghs.add_user(user = user.lower(),name = name)
@@ -106,14 +106,14 @@ def get_weekly_report(org_name,headers,day=None):
     contributors = []
     for prj in projects:
         try:
-            cr = get_contributors_list(org_name = org_name,project_name=prj)
+            cr = get_contributors_list(headers=headers, org_name = org_name,project_name=prj)
             print(cr)
             contributors.extend(cr)
         except Exception as e:
-            pass
+            print(e)
 
     contributors = list(set(map(tuple, contributors)))
-    print(contributors,"inside backend")
+    print(contributors)
     report = {}
     '''
     key : user
@@ -150,7 +150,7 @@ def get_weekly_report(org_name,headers,day=None):
     '''
     for user,name in contributors:
         # print(user)
-        report[user] = select_from_report_table(user=user,
+        report[user] = select_from_report_table(user=user.lower(),
                                     since = since,
                                     until = until,
                                     headers = headers)
@@ -192,14 +192,15 @@ if __name__ == '__main__':
     ## Run daily
     # generate_daily_report(headers,day = T+dT)
     
-    T = datetime(month=5,day=15,year=2018)+timedelta(days=7)
+    T = datetime(month=5,day=15,year=2018)
     # for i in range(4,12):
     #     dT = timedelta(days=i)
     #     print('at',i)
     #     generate_daily_report(headers,day = T+dT)
 
     ## Run Weekly
-    report = get_weekly_report(org_name = org_name,headers = headers,day=T)
+    report,until = get_weekly_report(org_name = org_name,headers = headers,day=T)
+    print(report)
     # lang_report = get_language_report_week(headers = headers, day = T)
     # print(lang_report)
     # @parul get the required data from the above function and display it on the channel.

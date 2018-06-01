@@ -1,3 +1,6 @@
+from src.db.contributor_table import add_contributor
+from src.db.contributor_table import get_contributors_list as getcon
+from src.utils.login import login
 import requests
 import os
 
@@ -24,7 +27,6 @@ def get_contributors(org_name,project_name):
     return all_contributors
 
 
-
 def get_contributors_list(org_name, project_name):
     print(org_name,project_name)
     contributors_username = get_contributors(org_name, project_name) 
@@ -32,10 +34,24 @@ def get_contributors_list(org_name, project_name):
     for username in contributors_username:
         fullname = get_full_name(username)
         contributors_list.append([str(username),str(fullname)])
+    print(contributors_list)
+
     return contributors_list
     return [['mulx10',"Mehul Kumar Nirala"],['parulagg27',"Parul Aggarwal"]]
 
 if __name__ == '__main__':
-    print(get_full_name('mulx10'))
+    # print(get_full_name('mulx10'))
+    org_name = 'KRSSG'
+    project_name = 'robocup-stp'
+    
+    headers = login('mehul','mehul@hasura') 
+
+    contributors = get_contributors_list(org_name,project_name)
+    add_contributor(headers=headers,org_name=org_name,project_name=project_name,contributors=contributors)
+    print(getcon(headers=headers,org_name=org_name,project_name=project_name))
+
+    # contributors = get_contributors_list('KRSSG','robocup')
+    # add_contributor(headers=headers,org_name='KRSSG',project_name='robocup',contributors=contributors)
+    # print(getcon(headers=headers,org_name='KRSSG',project_name='robocup-stp'))
     # print(get_contributors('KRSSG','robocup-stp'))
     # print (get_contributors_list('KRSSG','robocup-stp'))

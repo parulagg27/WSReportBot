@@ -1,0 +1,8 @@
+- args:
+    sql: CREATE TABLE "project_contributors_table"("org_name" text NOT NULL, "project_name"
+      text NOT NULL, "contributors" json NOT NULL, "id" bigserial NOT NULL, PRIMARY
+      KEY ("id") )
+  type: run_sql
+- args:
+    name: project_contributors_table
+  type: add_existing_table_or_view
