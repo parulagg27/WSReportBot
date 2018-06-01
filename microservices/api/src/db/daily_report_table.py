@@ -14,7 +14,9 @@ def insert_into_report_table(json_object, headers, date):
         projects = dict_json["projects"]
         for project in projects:
             org_name, project = project.split('/')
+            print(aoh.get_admin(project = project,headers=headers))
             admin = aoh.get_admin(project = project,headers=headers)[0]['admin_username']
+
             requestPayload = {
                 "type": "insert",
                 "args": {
@@ -40,7 +42,7 @@ def insert_into_report_table(json_object, headers, date):
                 }
             }
             resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-            print (json.loads(resp.content))
+            print (json.loads(resp.content.decode('utf-8')))
 
 
 def select_from_report_table(user, since=None,until=None,headers=None):
@@ -68,6 +70,9 @@ def select_from_report_table(user, since=None,until=None,headers=None):
                     "*"
                 ],
                 "where": {
+                    "contributor_handle": {
+                        "$eq": user
+                    },
                     "$and": [
                         {
                             "date": {
@@ -84,7 +89,7 @@ def select_from_report_table(user, since=None,until=None,headers=None):
             }
         }
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    return json.loads(resp.content)
+    return json.loads(resp.content.decode('utf-8'))
 
 
 if __name__ == '__main__':

@@ -28,7 +28,7 @@ class admin_org_handler(object):
             }
         }
         resp = requests.request("POST", self.url, data = json.dumps(requestPayload), headers = headers)
-        return json.loads(resp.content)
+        return json.loads(resp.content.decode('utf-8'))
     
     def get_admin(self,project,headers=None):
         requestPayload = {
@@ -46,7 +46,7 @@ class admin_org_handler(object):
             }
         }
         resp = requests.request("POST", self.url, data = json.dumps(requestPayload), headers = headers)
-        return json.loads(resp.content)
+        return json.loads(resp.content.decode('utf-8'))
     
     def get_project(self,admin_username=None,project=None,headers=None):
         requestPayload = {
@@ -66,7 +66,7 @@ class admin_org_handler(object):
         }
         resp = requests.request("POST", self.url, data = json.dumps(requestPayload), headers = headers)
         print(resp.content)
-        return json.loads(resp.content)
+        return json.loads(resp.content.decode('utf-8'))
         
     def get_org_project(self,headers=None):
         requestPayload = {
@@ -80,7 +80,7 @@ class admin_org_handler(object):
             }
         }
         resp = requests.request("POST", self.url, data = json.dumps(requestPayload), headers = headers)
-        return json.loads(resp.content)
+        return json.loads(resp.content.decode('utf-8'))
 
 
 if __name__ == '__main__':
