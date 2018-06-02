@@ -127,13 +127,13 @@ def get_weekly_report(org_name,headers,day=None):
     for prj in projects:
         try:
             cr = get_contributors_list(headers=headers, org_name = org_name,project_name=prj)
-            print(cr)
+            # print(cr)
             contributors.extend(cr)
         except Exception as e:
             print(e)
 
     contributors = list(set(map(tuple, contributors)))
-    print(contributors)
+    # print(contributors)
     report = {}
     '''
     key : user
