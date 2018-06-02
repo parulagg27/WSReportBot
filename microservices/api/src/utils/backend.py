@@ -74,7 +74,7 @@ def generate_initial_report(headers, org_name, project ,day):
     contributors = list(set(map(tuple, contributors)))
     for user,name in contributors:
         ghs.add_user(user = user.lower(),name = name)
-        print(user,name)
+        # print(user,name)
     stats = ghs.run(since,until)
     try:
         insert_into_report_table(stats, headers, date)
