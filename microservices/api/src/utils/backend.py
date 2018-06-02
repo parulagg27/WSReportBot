@@ -15,7 +15,7 @@ import json
 
 
 def get_lang_report(headers,T):
-    dT = timedelta(days=7)
+    dT = timedelta(days=21)
     since = (T-dT).strftime("%d %h %Y")
     until = T.strftime("%d %h %Y")
     lang_report = select_language_from_report_table(since = since, 
@@ -116,7 +116,7 @@ def get_weekly_report(org_name,headers,day=None):
     else:
         T = day
     # T = datetime(month=5,day=16,year=2018)
-    dT = timedelta(days=7)
+    dT = timedelta(days=21)
     since = (T-dT).strftime("%d %h %Y")
     until = T.strftime("%d %h %Y")
 

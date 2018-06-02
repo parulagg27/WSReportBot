@@ -49,7 +49,7 @@ def report(org_name):
     #                     'pr_closed':'3'
     #                 }]
     # date = "30 May, 2018"
-    print(user_report)
+    # print(user_report)
     return render_template("cards.html",user_report=user_report, date=date)
 
 @app.route("/lang")
