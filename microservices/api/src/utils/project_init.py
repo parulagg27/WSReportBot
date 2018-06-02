@@ -35,7 +35,8 @@ def main(admin_username,org_name,project,headers):
                                 day = T+dT)
 if __name__ == '__main__':
     headers = login('mehul','mehul@hasura') 
-    main('mulx10','OpenGenus','cosmos',headers)
+    # main('mulx10','OpenGenus','cosmos',headers)
+    main('mulx10','KRSSG','robocup-stp',headers)
 
 
 

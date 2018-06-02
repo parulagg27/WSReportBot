@@ -129,6 +129,7 @@ def get_weekly_report(org_name,headers,day=None):
             cr = get_contributors_list(headers=headers, org_name = org_name,project_name=prj)
             # print(cr)
             contributors.extend(cr)
+            print("add_user")
         except Exception as e:
             print(e)
 
@@ -169,13 +170,14 @@ def get_weekly_report(org_name,headers,day=None):
             }
     '''
     for user,name in contributors:
-        # print(user)
+        print("user contributions")
         report[user] = select_from_report_table(user=user.lower(),
                                     since = since,
                                     until = until,
                                     headers = headers)
     final_report = []
     # print(report)
+    print("report done")
     for user in report.keys():
         d = {}
         reps = report[user]
@@ -200,6 +202,7 @@ def get_weekly_report(org_name,headers,day=None):
                     d['pr_closed'] = rep['pr_closed']
             final_report.append(d)
 
+    print("return final_report")
 
     return final_report,until
 
