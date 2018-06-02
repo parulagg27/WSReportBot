@@ -55,11 +55,31 @@ def get_language_report_week(headers,day = None):
         language_report.append(lang)
     return language_report
 
+def generate_initial_report(headers, org_name, project ,day):
+    if 'str' in str(type(project)):
+        projects = []
+        projects.append(project)
 
+    T = day
+    dT = timedelta(days=1)
+    date = T.strftime("%d %h %Y")
+    since = str(T-dT).split(' ')[0]+'T00:00:00Z'
+    until = str(T).split(' ')[0]+'T00:00:00Z'
 
-
-
-
+    ghs = GHScrape(org_name = org_name)
+    ghs.add_project(projects = projects)
+    contributors = []
+    for prj in projects:
+        contributors.extend(get_contributors_list(headers=headers, org_name = org_name,project_name=prj))
+    contributors = list(set(map(tuple, contributors)))
+    for user,name in contributors:
+        ghs.add_user(user = user.lower(),name = name)
+        print(user,name)
+    stats = ghs.run(since,until)
+    try:
+        insert_into_report_table(stats, headers, date)
+    except Exception as e:
+        print(e)
 
 def generate_daily_report(headers,day = None):
     if day is None:

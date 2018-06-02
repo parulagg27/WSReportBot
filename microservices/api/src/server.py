@@ -25,8 +25,9 @@ def start():
 
 @app.route("/report/<org_name>")
 def report(org_name):
-    T = datetime(month=5,day=15,year=2018)
-    user_report, date = get_weekly_report(org_name = org_name,headers = headers,day = T)
+    # T = datetime(month=5,day=15,year=2018)
+    # user_report, date = get_weekly_report(org_name = org_name,headers = headers,day = T)
+    user_report, date = get_weekly_report(org_name = org_name,headers = headers)
     # user_report = [{
     #                     'handle':'mulx10',
     #                     'avatar_url':'https://avatars2.githubusercontent.com/u/23444642?v=4',
@@ -52,11 +53,20 @@ def report(org_name):
 
 @app.route("/lang")
 def language_report():
-    T = datetime(month=5,day=15,year=2018)+timedelta(days=7)
-    lang_report = get_language_report_week(headers = headers, day = T)
+    # T = datetime(month=5,day=15,year=2018)+timedelta(days=7)
+    # lang_report = get_language_report_week(headers = headers, day = T)
+    lang_report = get_language_report_week(headers = headers)
     return render_template("lang.html",lang_report = lang_report)
 # Uncomment to add a new URL at /new
 
 @app.route("/json")
 def json_message():
     return jsonify(message="Hello World")
+
+
+
+'''
+# To add a project call from utils/project_init.py 
+headers = login('mehul','mehul@hasura') 
+main('mulx10','OpenGenus','cosmos',headers)
+'''
