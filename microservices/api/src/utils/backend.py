@@ -213,17 +213,18 @@ if __name__ == '__main__':
     headers = login('mehul','mehul@hasura') 
     # headers = login('parul','parul@hasura') 
     ## Run daily
-    # generate_daily_report(headers,day = T+dT)
-    
+    print("login")
     T = datetime(month=5,day=15,year=2018)
+    generate_daily_report(headers,day = T)
+    
     # for i in range(4,12):
     #     dT = timedelta(days=i)
     #     print('at',i)
     #     generate_daily_report(headers,day = T+dT)
 
     ## Run Weekly
-    report,until = get_weekly_report(org_name = org_name,headers = headers,day=T)
-    print(report)
+    # report,until = get_weekly_report(org_name = org_name,headers = headers,day=T)
+    # print(report)
     # lang_report = get_language_report_week(headers = headers, day = T)
     # print(lang_report)
     # @parul get the required data from the above function and display it on the channel.
