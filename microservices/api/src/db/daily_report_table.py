@@ -116,6 +116,7 @@ def select_language_from_report_table(since,until,headers):
         }
     }
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    print(resp.content.decode('utf-8'))
     return json.loads(resp.content.decode('utf-8'))
 
 

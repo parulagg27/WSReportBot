@@ -15,4 +15,5 @@ def scheduled_job():
     headers = login('parul','parul@hasura')
     generate_daily_report(headers)
     print('This job is run every day at 9pm.')
+    
 sched.start()
