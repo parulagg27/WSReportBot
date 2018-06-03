@@ -54,6 +54,11 @@ def sendConfirmation(id, message, responseUrl):
     response = requests.request("POST", responseUrl, data=json.dumps(payload), headers=headers)
     print(response.text)
 
+
+@app.route("/")
+def home():
+    return "Hello Parul :P"
+
 @app.route('/langslack', methods=['POST'])
 def event():
     data = request.form.to_dict()
@@ -69,9 +74,21 @@ def event():
     else:
         return "Invalid Token"
 
-@app.route("/")
-def home():
-    return "Hello Parul :P"
+@app.route('/reportslack', methods=['POST'])
+def event():
+    data = request.form.to_dict()
+    print(data)
+    print("SlackToken: " + slackToken)
+    receivedToken = data["token"]
+    print("ReceivedToken: " + receivedToken)
+    if (receivedToken==slackToken):
+        receivedMessage= data["text"]
+        org_name = receivedMessage
+        user_report, date = get_weekly_report(org_name = org_name,headers = headers)
+        return "Waiting for confirmation"
+    else:
+        return "Invalid Token"
+
 
 @app.route("/login")
 def chk_login():
