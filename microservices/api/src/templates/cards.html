@@ -16,7 +16,29 @@
   max-width: 1100px;
   margin: 0 auto;
 }
-
+ .info {
+    width: 300px;
+    margin: 50px auto;
+    text-align: center;
+    h1 {
+      margin: 0 0 15px;
+      padding: 0;
+      font-size: 24px;
+      font-weight: bold;
+      color: @dark_gray;
+    }
+    span {
+      color: @gray;
+      font-size: 12px;
+      a {
+        color: @black;
+        text-decoration: none;
+      }
+      .fa {
+        color: @accent;
+      }
+    }
+  }
 .cards {
   display: -webkit-flex;
   display: flex;
@@ -176,9 +198,12 @@ body {
 </head>
 
 <body>
-
+ <div class="info">
+    <h1>Top Contributors</h1><span>Made with LoVe<i class='fa fa-heart animated infinite pulse'></i> by <a href='https://github.com/MuLx10'>MuLx10</a></span>
+  </div>
   <div class="container">
-	<div class="cards">
+
+  <div class="cards">
 		{% for x in user_report %}
 		<a class="card" href="https://github.com/" + {{x.handle}}>
 			<span class="card-header" style="background-image: url({{x.avatar_url}});">
