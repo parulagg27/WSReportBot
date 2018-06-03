@@ -27,7 +27,11 @@ p = None
 
 @app.route("/")
 def home():
-    return "Hello Parul :P"
+    return render_template("index.html")
+
+@app.route("/done")
+def done():
+    return render_template("added.html")
 
 @app.route("/start")
 def start():
