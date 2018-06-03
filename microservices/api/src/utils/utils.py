@@ -78,7 +78,7 @@ def sendSlackReport(report, channel,date):
 
     response = requests.request("POST", chatUrl, data=json.dumps(payload), headers=headers)
     # print(response.json())
-    return "response"
+    return "Completed :comet:"
 
 
 def sendSlackLangReport(report, channel):
@@ -106,7 +106,7 @@ def sendSlackLangReport(report, channel):
 
     response = requests.request("POST", chatUrl, data=json.dumps(payload), headers=headers)
     # # print(response.json())
-    return "done"
+    return ":lantern:"
 
 def get_org_project_dict(headers):
     org_project_dict = {}
