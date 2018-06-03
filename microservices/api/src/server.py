@@ -4,12 +4,14 @@ import signal
 import requests
 import subprocess
 from src import app
+from copy import copy
 from flask import jsonify
 from datetime import datetime
 from datetime import timedelta
 from src.utils.login import login
 from flask import jsonify, request
 from flask import Flask, render_template
+from src.utils.utils import sendSlackReport,sendSlackLangReport
 from src.utils.backend import get_weekly_report, get_language_report_week
 
 slackToken = "wk6GW3p1fzUbC7gNHbgxtsYa"
@@ -22,80 +24,9 @@ chatUrl = "https://slack.com/api/chat.postMessage"
 headers = login('mehul','mehul@hasura')
 p = None
 
-def sendConfirmation(id, message, responseUrl):
-    payload = {
-        "text": "Showing You reports for last week",
-        "attachments": [
-            {
-                "text": '"'+message+'"',
-                "fallback": "You are indecisive",
-                "callback_id": id,
-                "color": "#3AA3E3",
-                "attachment_type": "default",
-                "actions": [
-                    {
-                        "name": "yes",
-                        "text": "Yep",
-                        "type": "button",
-                        "value": "yes"
-                    },
-                    {
-                        "name": "no",
-                        "text": "Nope",
-                        "type": "button",
-                        "value": "no"
-                    }
-                ]
-            }
-        ]
-    }
-    headers = {
-        'content-type': "application/json",
-    }
-
-    response = requests.request("POST", responseUrl, data=json.dumps(payload), headers=headers)
-    print(response.text)
-
 
 @app.route("/")
 def home():
-    return "Hello Parul :P"
-
-@app.route('/langslack', methods=['POST'])
-def lang():
-    print(data)
-    data = request.form.to_dict()
-    print(data)
-    print("SlackToken: " + slackToken)
-    receivedToken = data["token"]
-    print("ReceivedToken: " + receivedToken)
-    if (receivedToken==slackToken):
-        receivedMessage= data["text"]
-        id = "None"
-        sendConfirmation(id, receivedMessage, data["response_url"])
-        return "Waiting for confirmation"
-    else:
-        return "Invalid Token"
-
-@app.route('/reportslack', methods=['POST'])
-def report():
-    data = request.form.to_dict()
-    print(data)
-    print("SlackToken: " + slackToken)
-    receivedToken = data["token"]
-    print("ReceivedToken: " + receivedToken)
-    if (receivedToken==slackToken):
-        receivedMessage= data["text"]
-        org_name = receivedMessage
-        user_report, date = get_weekly_report(org_name = org_name,headers = headers)
-        return "Waiting for confirmation"
-    else:
-        return "Invalid Token"
-
-
-@app.route("/login")
-def chk_login():
-    headers = login('mehul','mehul@hasura')
     return "Hello Parul :P"
 
 @app.route("/start")
@@ -109,6 +40,54 @@ def kill():
     global p
     p.kill()
     return "Hello Parul :P"
+
+@app.route('/reportslack', methods=['POST'])
+def report():
+    data = request.form.to_dict()
+    print(data)
+    print("SlackToken: " + slackToken)
+    receivedToken = data["token"]
+    print("ReceivedToken: " + receivedToken)
+    channel =  data["channel_id"]
+    if (receivedToken==slackToken):
+        org_name = data["text"].strip(' ')
+        user_report, date = get_weekly_report(org_name = org_name,headers = headers)
+        return sendSlackReport(user_report,channel,date)
+    else:
+        return "Invalid Token"
+
+@app.route('/langslack', methods=['POST'])
+def lang():
+    data = request.form.to_dict()
+    print(data)
+    print("SlackToken: " + slackToken)
+    receivedToken = data["token"]
+    print("ReceivedToken: " + receivedToken)
+    channel =  data["channel_id"]
+    if (receivedToken==slackToken):
+        receivedMessage= data["text"]
+        lang_report = get_language_report_week(headers = headers)
+        # print(lang_report)
+        return sendSlackLangReport(lang_report,channel)
+    else:
+        return "Invalid Token"
+
+@app.route('/init', methods=['POST'])
+def init():
+    data = request.form.to_dict()
+    print(data)
+    print("SlackToken: " + slackToken)
+    receivedToken = data["token"]
+    print("ReceivedToken: " + receivedToken)
+    channel =  data["channel_id"]
+    if (receivedToken==slackToken):
+        org_name, project = data["text"].strip(' ').split(' ')
+        p = subprocess.Popen(["python","src/utils/project_init.py",org_name,project])
+        return "Initiating ur project :hugging_face: \n This will take time :blush:"
+    else:
+        return "Invalid Token"
+
+
 
 @app.route("/report/<org_name>")
 def report_ui(org_name):
@@ -124,9 +103,14 @@ def language_report():
     lang_report = get_language_report_week(headers = headers)
     return render_template("lang.html",lang_report = lang_report)
 
-@app.route("/json")
-def json_message():
-    return jsonify(message="Hello World")
+# @app.route("/json")
+# def json_message():
+#     return jsonify(message="Hello World")
+
+# @app.route("/login")
+# def chk_login():
+#     headers = login('mehul','mehul@hasura')
+#     return "Hello Parul :P"
 
 
 

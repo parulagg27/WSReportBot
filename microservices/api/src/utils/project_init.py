@@ -35,8 +35,12 @@ def main(admin_username,org_name,project,headers):
                                 day = T+dT)
 if __name__ == '__main__':
     headers = login('mehul','mehul@hasura') 
+    import sys 
+    org_name = sys.argv[1]
+    prj_name = sys.argv[2]
     # main('mulx10','OpenGenus','cosmos',headers)
-    main('mulx10','KRSSG','robocup-stp',headers)
+    print(org_name,prj_name)
+    main('mulx10',org_name,prj_name,headers)
 
 
 
