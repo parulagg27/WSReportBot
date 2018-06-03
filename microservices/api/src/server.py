@@ -63,6 +63,7 @@ def home():
 
 @app.route('/langslack', methods=['POST'])
 def lang():
+    print(data)
     data = request.form.to_dict()
     print(data)
     print("SlackToken: " + slackToken)
