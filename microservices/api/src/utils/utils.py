@@ -90,7 +90,7 @@ def sendSlackLangReport(report, channel):
     payload = deepcopy(message)
     
     attachment = deepcopy(attachments)
-    attachment["title"] =  "This Week,   Last Week"
+    attachment["title"] =  "Language,This Week,Last Week"
     attachment["fields"][0]["value"] += msg
     attachment["ts"] = time.mktime(T.strptime(date, "%d %b %Y").timetuple())
 
