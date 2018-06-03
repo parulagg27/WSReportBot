@@ -62,7 +62,7 @@ def home():
     return "Hello Parul :P"
 
 @app.route('/langslack', methods=['POST'])
-def event():
+def lang():
     data = request.form.to_dict()
     print(data)
     print("SlackToken: " + slackToken)
@@ -77,7 +77,7 @@ def event():
         return "Invalid Token"
 
 @app.route('/reportslack', methods=['POST'])
-def event():
+def report():
     data = request.form.to_dict()
     print(data)
     print("SlackToken: " + slackToken)
@@ -110,7 +110,7 @@ def kill():
     return "Hello Parul :P"
 
 @app.route("/report/<org_name>")
-def report(org_name):
+def report_ui(org_name):
     # T = datetime(month=5,day=15,year=2018)
     # user_report, date = get_weekly_report(org_name = org_name,headers = headers,day = T)
     user_report, date = get_weekly_report(org_name = org_name,headers = headers)
