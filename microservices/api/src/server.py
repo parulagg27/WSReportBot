@@ -12,8 +12,10 @@ from flask import jsonify, request
 from flask import Flask, render_template
 from src.utils.backend import get_weekly_report, get_language_report_week
 
-slackToken = os.environ['SLACK_TOKEN']
-botAccessToken = os.environ['BOT_ACCESS_TOKEN']
+slackToken = "wk6GW3p1fzUbC7gNHbgxtsYa"
+# slackToken = os.environ['SLACK_TOKEN']
+botAccessToken = "xoxb-374384770263-374217359473-SfFw7D91EQWKz5qaxfS1hJVZ"
+# botAccessToken = os.environ['BOT_ACCESS_TOKEN']
 hasuraDataUrl = "http://data.hasura/v1/query"
 chatUrl = "https://slack.com/api/chat.postMessage"
 
