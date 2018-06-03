@@ -28,7 +28,7 @@ attachments = {
                 "color": "#36a64f",
                 "pretext": "",
                 "author_name": "WS ReportBot",
-                "author_link": "http://flickr.com/bobby/",
+                "author_link": "https://api.graveside44.hasura-app.io/",
                 "author_icon": "http://flickr.com/icons/bobby.jpg",
                 "title": "",
                 "text": "",
