@@ -3,4 +3,8 @@ clusters:
   data: null
   infra:
     provider: hasura-free
+- alias: staging
+  data: null
+  infra:
+    provider: hasura-free
 version: v1
